@@ -1,0 +1,43 @@
+version: '3'
+services:
+  togglz-eureka-server:
+    image: togglz-discovery-server-v1
+    container_name: togglz-discovery-server
+    build:
+      context: ./togglz-discovery-server
+      dockerfile: deploy/Dockerfile
+    ports:
+      - "8761:8761"
+
+  togglz-hazelcast-server:
+    image: togglz-hazelcast-server-v1
+    container_name: togglz-hazelcast-server
+    build:
+      context: ./togglz-hazelcast-server
+      dockerfile: deploy/Dockerfile
+    ports:
+      - "8762:8762"
+    depends_on:
+      - eureka-server
+    environment:
+      EUREKA_URI: http://eureka-server:8761/eureka
+      hazelcast.port: 5701
+    links:
+      - togglz-eureka-server:togglz-eureka-server
+
+  togglz-hazelcast-client:
+    image: togglz-hazelcast-client-v1
+    container_name: togglz-hazelcast-client
+    build:
+      context: ./togglz-hazelcast-client
+      dockerfile: deploy/Dockerfile
+    ports:
+      - "8764:8764"
+    depends_on:
+      - togglz-eureka-server
+      - togglz-hazelcast-server
+    environment:
+      EUREKA_URI: http://eureka-server:8761/eureka
+      eureka.client.props: eureka-client-docker
+    links:
+      - togglz-eureka-server:togglz-eureka-server
