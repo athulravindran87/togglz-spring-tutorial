@@ -8,9 +8,9 @@
         <version>0.1-SNAPSHOT</version>
     </parent>
     <groupId>com.athul</groupId>
-    <artifactId>togglz-file-based</artifactId>
+    <artifactId>togglz-db-based</artifactId>
     <version>0.1-SNAPSHOT</version>
-    <name>togglz-file-based</name>
+    <name>togglz-db-based</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>
@@ -25,6 +25,17 @@
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>1.4.197</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
             <exclusions>
@@ -34,6 +45,7 @@
                 </exclusion>
             </exclusions>
         </dependency>
+
         <dependency>
             <groupId>com.athul</groupId>
             <artifactId>common-config</artifactId>

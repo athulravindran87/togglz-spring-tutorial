@@ -1,0 +1,39 @@
+togglz:
+  enabled: true # Enable Togglz for the application.
+  feature-enums: com.athul.common.toggles.MyToggles
+  features-file-min-check-interval: 5000 # The minimum amount of time in milliseconds to wait between checks of the file's modification date.
+  cache:
+    enabled: false # Enable feature state caching.
+    time-to-live: 0 # The time after which a cache entry will expire.
+  #time-unit: milliseconds # The time unit as java.util.concurrent.TimeUnit enum name (one of "nanoseconds", "microseconds", "milliseconds", "seconds", "minutes", "hours", "days").
+  console:
+    enabled: true # Enable admin console.
+    path: /togglz-console # The path of the admin console when enabled.
+    #feature-admin-authority: ROLE_ADMIN # The name of the authority that is allowed to access the admin console.
+    secured: false # Indicates if the admin console runs in secured mode. If false the application itself should take care of securing the admin console.
+    use-management-port: false # Indicates if the admin console runs on the management port. If no management port is configured it will run on the application port. If set to true the console path will also be prefixed with the management.context-path.
+  endpoint: # Only for Spring Boot 1.x (for Spring Boot 2.x see https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-endpoints.html)
+    id: togglz # The endpoint identifier.
+    enabled: true # Enable actuator endpoint.
+    sensitive: false # Indicates  if the endpoint exposes sensitive information.
+  feature-manager-name: dbFeatureManager
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+spring:
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+  h2:
+    console:
+      enabled: true
+  datasource:
+    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=false
+    driver-class-name: org.h2.Driver
+    username: sa
+    data-password:
