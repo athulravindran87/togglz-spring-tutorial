@@ -95,6 +95,18 @@
         </dependency>
 
 
+        <dependency>
+            <groupId>org.togglz</groupId>
+            <artifactId>togglz-spring-boot-starter</artifactId>
+            <version>2.6.1.Final</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.togglz</groupId>
+            <artifactId>togglz-console</artifactId>
+            <version>2.6.1.Final</version>
+        </dependency>
+
 
     </dependencies>
 
@@ -164,10 +176,8 @@
             <dependency>
                 <groupId>com.athul</groupId>
                 <artifactId>common-config</artifactId>
-                <version>${project.parent.version}</version>
+                <version>${project.version}</version>
             </dependency>
-
-
         </dependencies>
     </dependencyManagement>
 
@@ -182,22 +192,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-            </plugin>
-
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-failsafe-plugin</artifactId>
-            </plugin>
-
-            <plugin>
-                <groupId>org.pitest</groupId>
-                <artifactId>pitest-maven</artifactId>
-                <version>1.4.8</version>
-            </plugin>
-            <plugin>
-                <groupId>pl.project13.maven</groupId>
-                <artifactId>git-commit-id-plugin</artifactId>
             </plugin>
 
             <plugin>
@@ -251,80 +245,6 @@
 
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-failsafe-plugin</artifactId>
-                    <version>${maven-failsafe-plugin.version}</version>
-                    <configuration>
-                        <environmentVariables>
-                            <SECUIRTY_REGION>none</SECUIRTY_REGION>
-                        </environmentVariables>
-                        <skipTests>${skip.failsafe.tests}</skipTests>
-                        <forkCount>2</forkCount>
-                        <reuseForks>false</reuseForks>
-                    </configuration>
-                    <executions>
-                        <execution>
-                            <id>integration-test</id>
-                            <goals>
-                                <goal>integration-test</goal>
-                                <goal>verify</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                </plugin>
-
-                <plugin>
-                    <groupId>org.pitest</groupId>
-                    <artifactId>pitest-maven</artifactId>
-                    <version>1.4.8</version>
-                    <configuration>
-                        <targetClasses>
-                            <param>com.athul*</param>
-                        </targetClasses>
-                        <targetTests>
-                            <param>com.athul.AllTests</param>
-                        </targetTests>
-                        <avoidCallsTo>
-                            <avoidCallsTo>org.apache.commons.lang3.time</avoidCallsTo>
-                            <avoidCallsTo>java.util.logging.Logging</avoidCallsTo>
-                            <avoidCallsTo>ch.qos.logback</avoidCallsTo>
-                            <avoidCallsTo>org.slf4j</avoidCallsTo>
-                            <avoidCallsTo>org.apache.log4j</avoidCallsTo>
-                            <avoidCallsTo>org.apache.commons.logging</avoidCallsTo>
-                        </avoidCallsTo>
-                        <failWhenNoMutations>false</failWhenNoMutations>
-                        <threads>3</threads>
-                        <verbose>false</verbose>
-                        <timeoutConstant>10000</timeoutConstant>
-                        <outputFormats>
-                            <outputFormat>HTML</outputFormat>
-                            <outputFormat>XML</outputFormat>
-                        </outputFormats>
-                    </configuration>
-                </plugin>
-
-                <plugin>
-                    <groupId>pl.project13.maven</groupId>
-                    <artifactId>git-commit-id-plugin</artifactId>
-                    <version>3.0.0</version>
-                    <executions>
-                        <execution>
-                            <goals>
-                                <goal>revision</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                    <configuration>
-                        <verbose>false</verbose>
-                        <dateFormat>yyyy-MM-dd'T'HH:mm:ss2</dateFormat>
-                        <generateGitPropertiesFile>true</generateGitPropertiesFile>
-                        <generateGitPropertiesFilename>${project.build.outputDirectory}/git.properties
-                        </generateGitPropertiesFilename>
-                        <failOnUnableToExtractRepoInfo>false</failOnUnableToExtractRepoInfo>
-                    </configuration>
-                </plugin>
-
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-project-info-reports-plugin</artifactId>
                     <version>3.0.0</version>
                 </plugin>
@@ -333,43 +253,59 @@
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-maven-plugin</artifactId>
                 </plugin>
-                <plugin>
-                    <groupId>io.fabric8</groupId>
-                    <artifactId>fabric8-maven-plugin</artifactId>
-                    <version>4.2.0</version>
-                </plugin>
             </plugins>
         </pluginManagement>
     </build>
 
-    <profiles>
-        <profile>
-            <id>pitest</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.pitest</groupId>
-                        <artifactId>pitest-maven</artifactId>
-                        <configuration>
-                            <mutationThreshold>90</mutationThreshold>
-                            <coverageThreshold>95</coverageThreshold>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
 
     <repositories>
+        <repository>
+            <id>spring-snapshots</id>
+            <name>Spring Snapshots</name>
+            <url>https://repo.spring.io/libs-snapshot-local</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>spring-milestones</id>
+            <name>Spring Milestones</name>
+            <url>https://repo.spring.io/libs-milestone-local</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>spring-releases</id>
+            <name>Spring Releases</name>
+            <url>https://repo.spring.io/libs-release-local</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
         <repository>
             <id>maven-central</id>
             <name>maven central</name>
             <url>http://central.maven.org/maven2/</url>
         </repository>
-        <repository>
+
+    </repositories>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>spring-snapshots</id>
+            <name>Spring Snapshots</name>
+            <url>https://repo.spring.io/libs-snapshot-local</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </pluginRepository>
+        <pluginRepository>
             <id>spring-milestones</id>
             <name>Spring Milestones</name>
-            <url>https://repo.spring.io/milestone</url>
-        </repository>
-    </repositories>
+            <url>https://repo.spring.io/libs-milestone-local</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
 </project>

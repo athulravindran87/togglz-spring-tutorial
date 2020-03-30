@@ -1,6 +1,6 @@
 package com.athul;
 
-import com.athul.common.client.TogglzControllerTest;
+import com.athul.common.TogglzControllerTest;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 

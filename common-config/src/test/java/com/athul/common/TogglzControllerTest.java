@@ -1,6 +1,6 @@
-package com.athul.common.client;
+package com.athul.common;
 
-import com.athul.common.BaseTest;
+import com.athul.common.controller.TogglzController;
 import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.core.IMap;
 import org.junit.Before;
