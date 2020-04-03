@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@ComponentScan(basePackages = "com.athul.common.controller", lazyInit = true)
+@ComponentScan(basePackages = "com.athul.common")
 public class TogglzFileBasedApplication {
 
     public static void main(String[] args) {
