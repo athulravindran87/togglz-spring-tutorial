@@ -14,13 +14,22 @@ public class TogglzController
 {
 
     @GetMapping(value = "/togglz-state")
-    public boolean getData(@RequestParam String key)
-    {
-        return MyToggles.valueOf(key).isActive();
+    public String getData(@RequestParam String key) {
+        if (MyToggles.valueOf(key).isActive()) {
+            return "Toggle: " + key + " is active ";
+        } else {
+            return "Toggle: " + key + " IS NOT active";
+        }
+
     }
 
     @GetMapping(value = "/togglz-state-criteria")
-    public boolean isActiveForCriteria(@RequestParam String criteria) {
-        return MyToggles.TEST_LABEL_1.isActiveForCriteria(criteria);
+    public String isActiveForCriteria(@RequestParam String key, @RequestParam String criteria) {
+
+        if (MyToggles.valueOf(key).isActiveForCriteria(criteria)) {
+            return "Toggle: " + key + " is active for criteria: " + criteria;
+        } else {
+            return "Toggle: " + key + " is NOT ACTIVE for criteria: " + criteria;
+        }
     }
 }

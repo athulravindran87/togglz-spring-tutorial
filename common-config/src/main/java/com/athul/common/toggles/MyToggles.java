@@ -15,17 +15,29 @@ import java.util.Objects;
 
 public enum MyToggles implements Feature {
 
-    @Label("TEST TOGGLE 1")
+    @Label("New Feature 1 ready to go live this weekend - Gradual Roll Out")
     @EnabledByDefault
     @DefaultActivationStrategy(id = CustomStrategy.ID,
             parameters = {
                     @ActivationParameter(name = CustomStrategy.PARAM, value = "test_criteria.txt")
             })
-    TEST_LABEL_1,
+    FEATURE_1,
 
-    @Label("TEST TOGGLE 2")
+    @Label("New Feature 2 ready to go live this weekend - Gradual Roll Out")
     @EnabledByDefault
-    TEST_LABEL_2;
+    @DefaultActivationStrategy(id = CustomStrategy.ID,
+            parameters = {
+                    @ActivationParameter(name = CustomStrategy.PARAM, value = "test_criteria_2.txt")
+            })
+    FEATURE_2,
+
+    @Label("New Feature ready to go live this weekend")
+    @EnabledByDefault
+    FEATURE_3,
+
+    @Label("New Feature still under development")
+    FEATURE_4;
+
 
     public boolean isActive() {
         FeatureManager manager = FeatureContext.getFeatureManagerOrNull();
