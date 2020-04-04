@@ -31,10 +31,8 @@
 
     <modules>
         <module>common-config</module>
-        <module>togglz-discovery-server</module>
-        <module>togglz-hazelcast-server</module>
-        <module>togglz-hazelcast-client</module>
         <module>togglz-file-based</module>
+        <module>togglz-db-based</module>
     </modules>
 
     <dependencies>

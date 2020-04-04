@@ -1,5 +1,5 @@
 /target/
-
+/.idea/
 ### STS ###
 .apt_generated
 .classpath
@@ -11,6 +11,7 @@
 
 ### IntelliJ IDEA ###
 .idea
+librariies
 *.iws
 *.iml
 *.ipr
